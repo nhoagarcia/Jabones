@@ -1,0 +1,47 @@
+CREATE TABLE clientes (
+  email varchar(255) ,
+  nombre varchar(255),
+  direccion varchar(255) ,
+  CP varchar(10) ,
+  Tlfno varchar(20),
+  PRIMARY KEY (email)
+);
+
+CREATE TABLE productos (
+  productoID int NOT NULL AUTO_INCREMENT,
+  nombre varchar(255) ,
+  descripcion varchar(255) ,
+  peso float,
+  precio float ,
+  imagen varchar(255),
+  PRIMARY KEY (productoID)
+);
+
+CREATE TABLE cesta (
+  cestaID int NOT NULL AUTO_INCREMENT,
+  email varchar(255),
+  fechaCreacion datetime,
+  PRIMARY KEY (cestaID),
+  FOREIGN KEY (email) REFERENCES clientes(email)
+);
+
+CREATE TABLE itemcesta (
+  itemcestaID int NOT NULL AUTO_INCREMENT,
+  cestaID int ,
+  productoID int ,
+  cantidad int ,
+  PRIMARY KEY (itemcestaID),
+  FOREIGN KEY (cestaID) REFERENCES cesta(cestaID),
+  FOREIGN KEY (productoID) REFERENCES productos(productoID)
+);
+
+CREATE TABLE pedidos (
+  pedidoID int NOT NULL AUTO_INCREMENT,
+  email varchar(255),
+  fechaPedido datetime ,
+  fechaEntrega datetime ,
+  totalPedido float,
+  entregado varchar(3),
+  PRIMARY KEY (pedidoID),
+  FOREIGN KEY (email) REFERENCES clientes(email)
+);
